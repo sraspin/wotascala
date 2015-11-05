@@ -21,3 +21,18 @@ class Employee {
     return stuff
   }
 }
+
+/*
+        val data = new Database
+        val a = new Employee
+        
+        def newmeth (n:Int) {
+          if(n <= 1){
+            val s = a loggingIn(data connection)
+            //left = new Label(s)
+          } else {
+            newmeth(n-1)
+          }
+        }
+        newmeth(2)
+*/

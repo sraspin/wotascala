@@ -1,7 +1,7 @@
 /**
  * @author sraspin
  */
-
+import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.Insets
@@ -21,6 +21,11 @@ import scalafx.scene.shape.Circle
 import scalafx.scene.layout.BorderPane
 import scalafx.scene.control.Label
 import scalafx.scene.layout.GridPane
+import scalafx.scene.text.Text
+import javafx.scene.control.TextField
+import javafx.scene.control.PasswordField
+import scalafx.scene.control.Button
+import scalafx.event.ActionEvent
 
 class GUI (stage:PrimaryStage) {
   stage title = "Raspin LogIn"
@@ -41,11 +46,28 @@ class GUI (stage:PrimaryStage) {
       hgap = 10
       vgap = 10
       padding = Insets(20, 100, 10, 10)
-      
-      add(new Label("hello"), 0, 0)
+      val e = new Employee
+      add(new Label(e newmeth(1)), 1, 0)
+      add(new Label(e newmeth(2)), 0, 0)
+      add(createUsernameField(), 2, 0)
     }
   }
   def show() {
     stage setScene(createScene)
+  }
+  def createUsernameField(usernameField:TextField, passwordField:PasswordField) : Button = {
+    val button = new Button{
+       text = ("Log In")
+       onAction = (ae: ActionEvent) => {
+         val user:String = usernameField getText()
+         val pass:String = passwordField getText()
+         val data: Database = new Database
+         val login = new LogIn(user, pass)
+         login Login(data connection)
+       }
+    }
+  }
+  val username = new TextField() {
+    promptTextProperty() = "Username: "
   }
 }

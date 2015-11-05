@@ -20,19 +20,15 @@ class Employee {
     }
     return stuff
   }
+  
+  val data = new Database
+  
+  def newmeth(n:Int): String = {
+    if(n <= 1) {
+      val s: String = loggingIn(data connection)
+      s
+    } else {
+      newmeth(n - 1)
+    }
+  }
 }
-
-/*
-        val data = new Database
-        val a = new Employee
-        
-        def newmeth (n:Int) {
-          if(n <= 1){
-            val s = a loggingIn(data connection)
-            //left = new Label(s)
-          } else {
-            newmeth(n-1)
-          }
-        }
-        newmeth(2)
-*/

@@ -32,6 +32,23 @@ class GUI (stage:PrimaryStage) {
   stage width = 300
   stage height = 400
   
+  var test: String = null
+  val username = new TextField() {
+    promptTextProperty() = "Username:"
+  }
+  val password = new PasswordField() {
+    promptTextProperty() = "Password:"
+  }
+  
+  
+  /**
+   * Making the scene visible
+   */
+  def show() {
+    stage setScene(createScene)
+  }
+  
+  
   /**
    * Creating a scene to hold the GridPane
    */
@@ -46,6 +63,7 @@ class GUI (stage:PrimaryStage) {
     scene
   }
   
+  
   /**
    * The GridPane that holds the TextFields and Login button
    */
@@ -57,21 +75,17 @@ class GUI (stage:PrimaryStage) {
       val e = new Employee
       add(username, 0, 0)
       add(password, 0, 1)
-      add(createUsernameField(username, password), 0, 2)
+      add(createLogin(username, password), 0, 2)
+      add(new Label(test), 0, 3)
+      println("working +" + test)
     }
   }
   
-  /**
-   * Making the scene visible
-   */
-  def show() {
-    stage setScene(createScene)
-  }
   
   /**
    * Creating the login button and function
    */
-  def createUsernameField(usernameField:TextField, passwordField:PasswordField) : Button = {
+  def createLogin(usernameField:TextField, passwordField:PasswordField) : Button = {
     val button = new Button{
        text = ("Log In")
        onAction = (ae: ActionEvent) => {
@@ -79,17 +93,17 @@ class GUI (stage:PrimaryStage) {
          val pass:String = passwordField getText()
          val data: Database = new Database
          val login = new LogIn(user, pass)
-         login Login(data connection)
-         println(user + pass)
+         //login Login(data connection)
+         val trial: Boolean =  login Login(data connection)
+         println(user + pass + "..." + trial)
+         if(trial == false){
+           test = "Congratulations!"
+         } else {
+           test = "FAILURE!!"
+         }
+         
        }
     }
     button
-  }
-  
-  val username = new TextField() {
-    promptTextProperty() = "Username:"
-  }
-  val password = new PasswordField() {
-    promptTextProperty() = "Password:"
   }
 }

@@ -8,10 +8,16 @@ import java.sql.Connection
 class LogIn(val user:String, val pass:String) {
   var u = new Array[String](3)
   var p = new Array[String](3)
-  var a = new Array[String](3)
   
-  def Login(conn: Connection){
+  /**
+   * Storing the usernames and passwords in arrays
+   * Checking the username and password input against the arrays
+   * Returns whether username & password valid or not (true or false)
+   */
+  def Login(conn: Connection): Boolean = {
     var i:Int = 0
+    var check: Boolean = false
+    var n: Int = 0
     try{
       val statement = conn createStatement()
       val rs = statement executeQuery("SELECT idEmployee, passEmployee FROM employee")
@@ -23,23 +29,24 @@ class LogIn(val user:String, val pass:String) {
     } catch {
       case e : SQLException => e printStackTrace
     }
+    
     println(u(0) + u(1) + p(0) + p(1))
-    var ucheck: Boolean = false
-    var n: Int = 0
-    if(ucheck == false){
-      while(ucheck == false && n < i){
-        if(user equals u(n)){
-          ucheck = true
+    
+    if(check == false){
+      while(check == false && n < i){
+        if(user == u(n) && pass == p(n)){
+          check = true
         } else {
           n += 1
         }
       }
     }
-    if(ucheck == false){
+    if(check == false){
       println("you got it wrong")
     }
-    if(ucheck == true){
+    if(check == true){
       println("you got it right")
     }
+    check
   }
 }

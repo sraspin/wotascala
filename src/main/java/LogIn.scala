@@ -29,9 +29,6 @@ class LogIn(val user:String, val pass:String) {
     } catch {
       case e : SQLException => e printStackTrace
     }
-    
-    println(u(0) + u(1) + p(0) + p(1))
-    
     if(check == false){
       while(check == false && n < i){
         if(user == u(n) && pass == p(n)){

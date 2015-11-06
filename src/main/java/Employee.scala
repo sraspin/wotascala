@@ -5,6 +5,10 @@
 import java.sql.Connection
 
 class Employee {
+  
+  /**
+   * 
+   */
   def loggingIn(connection:Connection):String = {
     var stuff: String = null
     try {

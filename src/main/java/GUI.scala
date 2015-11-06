@@ -31,6 +31,10 @@ class GUI (stage:PrimaryStage) {
   stage title = "Raspin LogIn"
   stage width = 300
   stage height = 400
+  
+  /**
+   * Creating a scene to hold the GridPane
+   */
   def createScene():Scene = {
     val scene = new Scene {
       content = new HBox {
@@ -41,20 +45,32 @@ class GUI (stage:PrimaryStage) {
     }
     scene
   }
+  
+  /**
+   * The GridPane that holds the TextFields and Login button
+   */
   def createGridPane():GridPane={
     new GridPane {
       hgap = 10
       vgap = 10
       padding = Insets(20, 100, 10, 10)
       val e = new Employee
-      add(new Label(e newmeth(1)), 1, 0)
-      add(new Label(e newmeth(2)), 0, 0)
-      add(createUsernameField(), 2, 0)
+      add(username, 0, 0)
+      add(password, 0, 1)
+      add(createUsernameField(username, password), 0, 2)
     }
   }
+  
+  /**
+   * Making the scene visible
+   */
   def show() {
     stage setScene(createScene)
   }
+  
+  /**
+   * Creating the login button and function
+   */
   def createUsernameField(usernameField:TextField, passwordField:PasswordField) : Button = {
     val button = new Button{
        text = ("Log In")
@@ -64,10 +80,16 @@ class GUI (stage:PrimaryStage) {
          val data: Database = new Database
          val login = new LogIn(user, pass)
          login Login(data connection)
+         println(user + pass)
        }
     }
+    button
   }
+  
   val username = new TextField() {
-    promptTextProperty() = "Username: "
+    promptTextProperty() = "Username:"
+  }
+  val password = new PasswordField() {
+    promptTextProperty() = "Password:"
   }
 }

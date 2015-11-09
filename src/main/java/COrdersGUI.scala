@@ -19,8 +19,14 @@ import scalafx.scene.shape.Circle
 import scalafx.scene.layout.{BorderPane, GridPane, HBox}
 import javafx.scene.control.{TextField, PasswordField}
 import scalafx.event.ActionEvent
+import scalafx.scene.control.TableColumn._
+import scalafx.scene.control.{TableCell, TableColumn, TableView}
+import java.sql.Connection
+import Database._
+import Entities._
 
-class CustomerOrders extends JFXApp{
+class COrdersGUI extends JFXApp{
+  
   def createStage: PrimaryStage = {
     stage = new PrimaryStage{
       title = "Raspin Customer Orders"
@@ -28,14 +34,27 @@ class CustomerOrders extends JFXApp{
       height = 500
       scene = new Scene{
         root = new BorderPane{
-          center = centrePane
+          center = centrePane()
         }
       }
     }
     stage
   }
   
-  def centrePane = new HBox {
-    
+  def centrePane() = new HBox {
+    val db = new COrdersDB
+    val order = db getCOrders()
+    children = Seq(
+      new TableView[CustomerOrder](order)
+    )
+  }
+  
+  def createList():GridPane={
+    new GridPane{
+      hgap = 10
+      vgap = 10
+      padding = Insets(20, 100, 10, 10)
+      
+    }
   }
 }

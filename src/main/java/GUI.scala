@@ -18,6 +18,7 @@ import scalafx.scene.shape.Circle
 import scalafx.scene.layout.{BorderPane, GridPane, HBox}
 import javafx.scene.control.{TextField, PasswordField}
 import scalafx.event.ActionEvent
+import Database._
 
 class GUI (stage:PrimaryStage) {
   stage title = "Raspin LogIn"
@@ -79,12 +80,9 @@ class GUI (stage:PrimaryStage) {
        onAction = (ae: ActionEvent) => {
          val user:String = usernameField getText()
          val pass:String = passwordField getText()
-         val data: Database = new Database
-         val login = new LogIn(user, pass)
-         //login Login(data connection)
-         //val trial: Boolean =  login Login(data connection)
-         if(login Login(data connection)){
-           val a = new CustomerOrders
+         val login = new LoginDB(user, pass)
+         if(login Login()){
+           val a = new COrdersGUI
            val astage = a createStage
          } else {
            show()

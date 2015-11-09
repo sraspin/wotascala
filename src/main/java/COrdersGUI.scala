@@ -9,40 +9,23 @@ import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Scene
 import scalafx.scene.Scene.sfxScene2jfx
 import scalafx.scene.effect.DropShadow
-import scalafx.scene.paint._
+import scalafx.scene.paint.Color
 import scalafx.scene.text.Text
-import scalafx.stage.StageStyle
 import scalafx.collections.ObservableBuffer
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
-import scalafx.scene.shape.Circle
+import scalafx.scene.shape.{Circle, Rectangle}
 import scalafx.scene.layout.{BorderPane, GridPane, HBox, VBox, StackPane}
 import javafx.scene.control.{TextField, PasswordField}
 import scalafx.event.ActionEvent
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control.{TableCell, TableColumn, TableView}
-import java.sql.Connection
-import Database._
-import Entities._
-import scalafx.event.ActionEvent
+import Database.COrdersDB
+import Database.AnOrderDB
+import Entities.CustomerOrder
+import Entities.AnOrder
 import scalafx.stage.Popup
 
-import scalafx.Includes._
-import scalafx.application.JFXApp
-import scalafx.application.JFXApp.PrimaryStage
-import scalafx.event.{ActionEvent, Event}
-import scalafx.geometry.{Insets, Orientation, Pos}
-import scalafx.scene.control.MenuItem._
-import scalafx.scene.control.ScrollPane.ScrollBarPolicy
-import scalafx.scene.control._
-import scalafx.scene.image.{Image, ImageView}
-import scalafx.scene.input.KeyCombination
-import scalafx.scene.layout.{BorderPane, HBox, StackPane, VBox}
-import scalafx.scene.paint.Color
-import scalafx.scene.shape.{Circle, Rectangle}
-import scalafx.scene.web.{HTMLEditor, WebView}
-import scalafx.scene.{Node, Scene}
-import scalafx.stage.Popup
 
 class COrdersGUI extends JFXApp{
   var currentCOrder: Int = 0
@@ -128,6 +111,37 @@ class COrdersGUI extends JFXApp{
           strokeWidth = 2
         },
         new BorderPane {
+          center = new HBox{
+            val aodb = new AnOrderDB
+            val order2 = aodb getOrder(currentCOrder)
+            val table2 = new TableView[AnOrder](order2){
+              columns ++= List(
+                new TableColumn[AnOrder, Int]{
+                  text = "Order Number"
+                  cellValueFactory = {_.value.idOrder}
+                  prefWidth = 120
+                },
+                new TableColumn[AnOrder, Int]{
+                  text = "Customer Order ID"
+                  cellValueFactory = {_.value.idProduct}
+                  prefWidth = 120
+                },
+                new TableColumn[AnOrder, Int]{
+                  text = "Product ID"
+                  cellValueFactory = {_.value.Quantity}
+                  prefWidth = 120
+                },
+                new TableColumn[AnOrder, Int]{
+                  text = "Quantity"
+                  cellValueFactory = {_.value.Quantity}
+                  prefWidth = 120
+                }
+              )
+            }
+            children = Seq(
+              table2
+            )
+          }
           top = new Label {
             text = writing
             wrapText = true

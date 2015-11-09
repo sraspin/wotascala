@@ -20,10 +20,8 @@ import javafx.scene.control.{TextField, PasswordField}
 import scalafx.event.ActionEvent
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control.{TableCell, TableColumn, TableView}
-import Database.COrdersDB
-import Database.AnOrderDB
-import Entities.CustomerOrder
-import Entities.AnOrder
+import Database.{COrdersDB, AnOrderDB, StatusUpdateDB}
+import Entities.{CustomerOrder, AnOrder}
 import scalafx.stage.Popup
 
 
@@ -76,34 +74,44 @@ class COrdersGUI extends JFXApp{
   }
   
   def rightPane() = new HBox{
+    val sudb = new StatusUpdateDB
     children = Seq(
       new GridPane{
         hgap = 10
         vgap = 10
         padding = Insets(20, 75, 10, 10)
-        val valueButton = new Button{
+        val viewButton = new Button{
           text = "View Order"
           onAction = {
             e: ActionEvent => {
-              val orderPopup = createPopup("Order Number " + currentCOrder)
+              val orderPopup = createPopup()
               orderPopup.show(stage,
               (stage.width() - orderPopup.width()) / 2.0 + stage.x(),
               (stage.height() - orderPopup.height()) / 2.0 + stage.y())
             }
           }
         }
-        add(valueButton,2,0)
+        val statupButton = new Button{
+          text = "Update Status"
+          onAction = {
+            e: ActionEvent => {
+              sudb statUpdate("updated", currentCOrder)
+            }
+          }
+        }
+        add(viewButton, 2, 0)
+        add(statupButton, 3, 0)
       }
     )
   }
   
-  def createPopup(writing: String) = new Popup {
+  def createPopup() = new Popup {
     inner =>
     content.add(new StackPane {
       children = List(
         new Rectangle {
-          width = 300
-          height = 200
+          width = 500
+          height = 580
           arcWidth = 20
           arcHeight = 20
           fill = Color.LightGray
@@ -112,23 +120,24 @@ class COrdersGUI extends JFXApp{
         },
         new BorderPane {
           center = new HBox{
+            padding = Insets(10, 10, 10, 10)
             val aodb = new AnOrderDB
             val order2 = aodb getOrder(currentCOrder)
             val table2 = new TableView[AnOrder](order2){
               columns ++= List(
                 new TableColumn[AnOrder, Int]{
                   text = "Order Number"
-                  cellValueFactory = {_.value.idOrder}
+                  cellValueFactory = {_.value.orderNo}
                   prefWidth = 120
                 },
                 new TableColumn[AnOrder, Int]{
                   text = "Customer Order ID"
-                  cellValueFactory = {_.value.idProduct}
+                  cellValueFactory = {_.value.idOrder}
                   prefWidth = 120
                 },
                 new TableColumn[AnOrder, Int]{
                   text = "Product ID"
-                  cellValueFactory = {_.value.Quantity}
+                  cellValueFactory = {_.value.idProduct}
                   prefWidth = 120
                 },
                 new TableColumn[AnOrder, Int]{
@@ -141,12 +150,6 @@ class COrdersGUI extends JFXApp{
             children = Seq(
               table2
             )
-          }
-          top = new Label {
-            text = writing
-            wrapText = true
-            maxWidth = 280
-            maxHeight = 140
           }
           bottom = new Button("OK") {
             onAction = {e: ActionEvent => inner.hide()}

@@ -37,6 +37,7 @@ class COrdersGUI extends JFXApp{
         root = new BorderPane{
           center = centrePane()
           right = rightPane()
+          top = topPane()
         }
       }
     }
@@ -63,13 +64,13 @@ class COrdersGUI extends JFXApp{
     table onMouseClicked = handle{
       try{
         currentCOrder = table.getSelectionModel.selectedItemProperty.get.idCOrder.value
-        println(table.getSelectionModel.selectedItemProperty.get.idCOrder.value)
+        //println(table.getSelectionModel.selectedItemProperty.get.idCOrder.value)
       } catch {
         case e : NullPointerException => e printStackTrace
       }
     }
     children = Seq(
-        table
+      table
     )
   }
   
@@ -81,6 +82,7 @@ class COrdersGUI extends JFXApp{
         vgap = 10
         padding = Insets(20, 75, 10, 10)
         val viewButton = new Button{
+          padding = Insets(5,13,5,13)
           text = "View Order"
           onAction = {
             e: ActionEvent => {
@@ -92,15 +94,50 @@ class COrdersGUI extends JFXApp{
           }
         }
         val statupButton = new Button{
-          text = "Update Status"
+          padding = Insets(5,10,5,10)
+          text = "Status: Received"
           onAction = {
             e: ActionEvent => {
-              sudb statUpdate("updated", currentCOrder)
+              sudb statUpdate("C","Received", currentCOrder)
+              createStage
+            }
+          }
+        }
+        val statup2Button = new Button{
+          padding = Insets(5,5,5,6)
+          text = "Status: Processing"
+          onAction = {
+            e: ActionEvent => {
+              sudb statUpdate("C","Processing", currentCOrder)
+              createStage
+            }
+          }
+        }
+        val statup3Button = new Button{
+          padding = Insets(5,6,5,6)
+          text = "Status: In Delivery"
+          onAction = {
+            e: ActionEvent => {
+              sudb statUpdate("C","In Delivery", currentCOrder)
+              createStage
+            }
+          }
+        }
+        val statup4Button = new Button{
+          padding = Insets(5,9,5,9)
+          text = "Status: Delivered"
+          onAction = {
+            e: ActionEvent => {
+              sudb statUpdate("C","Delivered", currentCOrder)
+              createStage
             }
           }
         }
         add(viewButton, 2, 0)
-        add(statupButton, 3, 0)
+        add(statupButton, 2, 1)
+        add(statup2Button, 2, 2)
+        add(statup3Button, 2, 3)
+        add(statup4Button, 2, 4)
       }
     )
   }
@@ -159,6 +196,24 @@ class COrdersGUI extends JFXApp{
         }
       )
     }.delegate
+    )
+  }
+  
+  def topPane() = new HBox{
+    children = Seq(
+      new GridPane{
+        hgap =10
+        vgap = 10
+        padding = Insets(20, 100, 10, 10)
+        val homeButton = new Label{
+          new Label("HOME")
+        }
+        homeButton onMouseClicked = handle{
+          val h = new HomeScreenGUI
+          h HomeStage
+        }
+        add(homeButton, 0, 0)
+      }
     )
   }
 }

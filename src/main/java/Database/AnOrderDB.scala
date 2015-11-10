@@ -6,7 +6,7 @@ package Database
 
 import scalafx.collections.ObservableBuffer
 import java.sql.SQLException
-import Entities.AnOrder
+import Entities.{AnOrder,APOrder}
 
 class AnOrderDB {
   val db = new Database
@@ -27,5 +27,23 @@ class AnOrderDB {
       case e : SQLException => e printStackTrace
     }
     orderArray
+  }
+  
+  def getPOrder(a: Int): ObservableBuffer[APOrder] = {
+    val pOrderArray:ObservableBuffer[APOrder] = ObservableBuffer[APOrder]()
+    
+    try{
+      val conn= db connect()
+      
+      val statement = conn createStatement()
+      val rs = statement executeQuery("SELECT * FROM aporder WHERE idOrder = '" + a + "'")
+      while(rs next){
+        pOrderArray += new APOrder(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4))
+      }
+      conn.close()
+    } catch {
+      case e : SQLException => e printStackTrace
+    }
+    pOrderArray
   }
 }

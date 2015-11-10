@@ -16,9 +16,10 @@ import scalafx.scene.control.TableColumn._
 import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
 import scalafx.scene.shape.Circle
 import scalafx.scene.layout.{BorderPane, GridPane, HBox}
-import javafx.scene.control.{TextField, PasswordField}
 import scalafx.event.ActionEvent
 import Database._
+import scalafx.scene.control.PasswordField
+import scalafx.scene.control.TextField
 
 class GUI (stage:PrimaryStage) {
   stage title = "Raspin LogIn"
@@ -26,10 +27,10 @@ class GUI (stage:PrimaryStage) {
   stage height = 175
   
   val username = new TextField() {
-    promptTextProperty() = "Username:"
+    promptText = "Username:"
   }
   val password = new PasswordField() {
-    promptTextProperty() = "Password:"
+    promptText = "Password:"
   }
   
   
@@ -78,12 +79,12 @@ class GUI (stage:PrimaryStage) {
     val button = new Button{
        text = ("Log In")
        onAction = (ae: ActionEvent) => {
-         val user:String = usernameField getText()
-         val pass:String = passwordField getText()
+         val user:String = usernameField.text getValue()
+         val pass:String = passwordField.text getValue()
          val login = new LoginDB(user, pass)
          if(login Login()){
-           val a = new COrdersGUI
-           val astage = a createStage
+           val a = new HomeScreenGUI
+           val astage = a HomeStage
          } else {
            show()
          }

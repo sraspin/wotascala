@@ -205,9 +205,7 @@ class COrdersGUI extends JFXApp{
         hgap =10
         vgap = 10
         padding = Insets(20, 100, 10, 10)
-        val homeButton = new Label{
-          new Label("HOME")
-        }
+        val homeButton = new Label("HOME")
         homeButton onMouseClicked = handle{
           val h = new HomeScreenGUI
           h HomeStage

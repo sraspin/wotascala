@@ -28,13 +28,17 @@ class AddStockDB {
       case e : SQLException => e printStackTrace
     }
   }
-  def addToOrder(p: Int, q: Int){
+  def addToOrder(p: Int, q: Int, currentPOrder: Int){
+    val date = new Date
+    val sdf = new SimpleDateFormat("ssmmhhdd")
+    val dates = sdf.format(date)
+    val datei = Integer.parseInt(dates)
     
     try{
       val conn = db connect()
       
       val statement = conn createStatement()
-      val rs = statement executeUpdate("INSERT INTO `aporder` (`orderNo`, `Quantity`) VALUES ('" + p + "', '" + q + "')")
+      val rs = statement executeUpdate("INSERT INTO `aporder` (`idIndividual`, `idOrder`, `idProduct`, `Quantity`) VALUES ('" + datei + "' , '" + currentPOrder + "', '" + p + "', '" + q + "')")
     } catch {
       case e : SQLException => e printStackTrace
     }

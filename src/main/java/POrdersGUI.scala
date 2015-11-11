@@ -29,6 +29,11 @@ import scalafx.scene.control.TextField
 class POrdersGUI extends JFXApp{
   var currentPOrder: Int = 0
   
+  
+  /**
+   * Creating the stage and scene for Purchase Orders page
+   * Calling methods for the central, right and top parts of BorderPane
+   */
   def createStage: PrimaryStage = {
     stage = new PrimaryStage{
       title = "Raspin Purchase Orders"
@@ -45,6 +50,12 @@ class POrdersGUI extends JFXApp{
     stage
   }
   
+  
+  /**
+   * Calls method that pulls purchase order info from database
+   * Creates a table of all purchase orders
+   * Saves the order ID of an order that is clicked on
+   */
   def centrePane() = new HBox {
     val db = new POrdersDB
     val order = db getPOrders()
@@ -75,6 +86,13 @@ class POrdersGUI extends JFXApp{
     )
   }
   
+  
+  /**
+   * Creates a GridPane with various buttons
+   * viewButton calls method to create pop-up with individual order info
+   * the "statup" Buttons change the status of the highlighted order
+   * newOrderButton creates a new, empty purchase order in the database
+   */
   def rightPane() = new HBox{
     val sudb = new StatusUpdateDB
     val asdb = new AddStockDB
@@ -88,7 +106,7 @@ class POrdersGUI extends JFXApp{
           text = "View Order"
           onAction = {
             e: ActionEvent => {
-              val orderPopup = createPopup()
+              val orderPopup = createPopup(true)
               orderPopup.show(stage,
               (stage.width() - orderPopup.width()) / 2.0 + stage.x(),
               (stage.height() - orderPopup.height()) / 2.0 + stage.y())
@@ -144,7 +162,14 @@ class POrdersGUI extends JFXApp{
     )
   }
   
-  def createPopup() = new Popup {
+  
+  /**
+   * creates a rectangle (acts as a scene)
+   * editButton appears at the top if condition is true
+   * calls method that pulls individual order info from database
+   * creates a table that contains the individual order info
+   */
+  def createPopup(insight: Boolean) = new Popup {
     inner =>
     content.add(new StackPane {
       children = List(
@@ -158,23 +183,26 @@ class POrdersGUI extends JFXApp{
           strokeWidth = 2
         },
         new BorderPane {
-          top = new HBox{
-            padding = Insets(10,10,10,10)
-            val editButton = new Button{
-              padding = Insets(5,5,5,5)
-              text = "Edit Order"
-              onAction = {
-                e: ActionEvent => {
-                  val popUp = popup2()
-                  popUp.show(stage,
-                  (stage.width() - popUp.width()) / 2.0 + stage.x(),
-                  (stage.height() - popUp.height()) / 2.0 + stage.y())
+          if(insight == true){
+            top = new HBox{
+              padding = Insets(10,10,10,10)
+              val editButton = new Button{
+                padding = Insets(5,5,5,5)
+                text = "Edit Order"
+                onAction = {
+                  e: ActionEvent => {
+                    val popUp = popup2()
+                    popUp.show(stage,
+                    (stage.width() - popUp.width()) / 2.0 + stage.x(),
+                    (stage.height() - popUp.height()) / 2.0 + stage.y())
+                    inner.hide()
+                  }
                 }
               }
+              children = Seq(
+                editButton
+              )
             }
-            children = Seq(
-              editButton
-            )
           }
           center = new HBox{
             padding = Insets(10, 10, 10, 10)
@@ -219,13 +247,19 @@ class POrdersGUI extends JFXApp{
     )
   }
   
+  
+  /**
+   * Appears if the editButton is clicked on
+   * asks the user for product ID and quantity values
+   * calls a method that accepts the users input and adds it into the database
+   */
   def popup2() = new Popup {
     inner =>
       content.add(new StackPane {
         children = List(
           new Rectangle {
-            width = 500
-            height = 580
+            width = 250
+            height = 250
             arcWidth = 20
             arcHeight = 20
             fill = Color.LightGray
@@ -262,6 +296,27 @@ class POrdersGUI extends JFXApp{
     )
   }
   
+  
+  /**
+   * calls a method that inserts the given parameters into the database
+   * 
+   */
+  def updatePOrder(prodId: TextField, quantity: TextField): Button = {
+    val finalButton = new Button("Update"){
+      onAction = (ae: ActionEvent) => {
+        val prid: Int = prodId.text.getValue() toInt
+        val quan: Int = quantity.text.getValue() toInt
+        val atsdb = new AddStockDB
+        atsdb addToOrder(prid, quan, currentPOrder)
+        val popup = createPopup(false)
+        popup.show(stage,
+        (stage.width() - popup.width()) / 2.0 + stage.x(),
+        (stage.height() - popup.height()) / 2.0 + stage.y())
+      }
+    }
+    finalButton
+  }
+  
   def topPane() = new HBox{
     children = Seq(
       new GridPane{
@@ -277,16 +332,5 @@ class POrdersGUI extends JFXApp{
       }
     )
   }
-  def updatePOrder(prodId: TextField, quantity: TextField): Button = {
-    val finalButton = new Button("Update"){
-      onAction = (ae: ActionEvent) => {
-        val prid: Int = prodId.text.getValue() toInt
-        val quan: Int = quantity.text.getValue() toInt
-        val atsdb = new AddStockDB
-        atsdb addToOrder(prid, quan)
-        createPopup()
-      }
-    }
-    finalButton
-  }
+  
 }

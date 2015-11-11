@@ -5,28 +5,19 @@
 import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
-import scalafx.geometry.{Insets, Pos}
+import scalafx.geometry.Insets
 import scalafx.scene.Scene
-import scalafx.scene.Scene.sfxScene2jfx
-import scalafx.scene.effect.DropShadow
-import scalafx.scene.paint.Color
-import scalafx.scene.text.Text
-import scalafx.collections.ObservableBuffer
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
-import scalafx.scene.shape.{Circle, Rectangle}
-import scalafx.scene.layout.{BorderPane, GridPane, HBox, VBox, StackPane}
-import javafx.scene.control.{TextField, PasswordField}
+import scalafx.scene.control.Button
+import scalafx.scene.layout.{GridPane, HBox}
 import scalafx.event.ActionEvent
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableCell, TableColumn, TableView}
-import Database.{COrdersDB, AnOrderDB, StatusUpdateDB}
-import Entities.{CustomerOrder, AnOrder}
-import scalafx.stage.Popup
 
 
 class HomeScreenGUI extends JFXApp{
   
+  /**
+   * Creates stage and scene
+   * Calls HomeStage method
+   */
   def HomeStage: PrimaryStage = {
     stage = new PrimaryStage{
       title = "Raspin Home Screen"
@@ -43,6 +34,11 @@ class HomeScreenGUI extends JFXApp{
     stage
   }
   
+  
+  /**
+   * Creates a GridPane
+   * Creates buttons to link to different pages of the application
+   */
   def HomeGridPane():GridPane={
     new GridPane {
       hgap = 10

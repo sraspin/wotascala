@@ -7,19 +7,12 @@ import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Scene
-import scalafx.scene.Scene.sfxScene2jfx
-import scalafx.scene.effect.DropShadow
 import scalafx.scene.paint.Color
-import scalafx.scene.text.Text
-import scalafx.collections.ObservableBuffer
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
-import scalafx.scene.shape.{Circle, Rectangle}
+import scalafx.scene.shape.Rectangle
 import scalafx.scene.layout.{BorderPane, GridPane, HBox, VBox, StackPane}
-import javafx.scene.control.{TextField, PasswordField}
 import scalafx.event.ActionEvent
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableCell, TableColumn, TableView}
 import Database.{COrdersDB, AnOrderDB, StatusUpdateDB}
 import Entities.{CustomerOrder, AnOrder}
 import scalafx.stage.Popup
@@ -28,6 +21,11 @@ import scalafx.stage.Popup
 class COrdersGUI extends JFXApp{
   var currentCOrder: Int = 0
   
+  
+  /**
+   * Creating the stage and scene for Customer Orders page
+   * Calling methods for the central, right and top parts of BorderPane
+   */
   def createStage: PrimaryStage = {
     stage = new PrimaryStage{
       title = "Raspin Customer Orders"
@@ -44,6 +42,12 @@ class COrdersGUI extends JFXApp{
     stage
   }
   
+  
+  /**
+   * Calls method that pulls customer order info from database
+   * Creates a table of all customer orders
+   * Saves the order ID of an order that is clicked on
+   */
   def centrePane() = new HBox {
     val db = new COrdersDB
     val order = db getCOrders()
@@ -74,6 +78,12 @@ class COrdersGUI extends JFXApp{
     )
   }
   
+  
+  /**
+   * Creates a GridPane with various buttons
+   * viewButton calls method to create pop-up with individual order info
+   * the "statup" Buttons change the status of the highlighted order
+   */
   def rightPane() = new HBox{
     val sudb = new StatusUpdateDB
     children = Seq(
@@ -142,6 +152,12 @@ class COrdersGUI extends JFXApp{
     )
   }
   
+  
+  /**
+   * creates rectangle (acts as a scene)
+   * calls method that pulls individual order info from database
+   * creates a table that contains the individual order info
+   */
   def createPopup() = new Popup {
     inner =>
     content.add(new StackPane {
@@ -199,6 +215,10 @@ class COrdersGUI extends JFXApp{
     )
   }
   
+  
+  /**
+   * Inserts a Label at the top of the page that returns user to title screen
+   */
   def topPane() = new HBox{
     children = Seq(
       new GridPane{

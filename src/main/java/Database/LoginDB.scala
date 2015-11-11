@@ -32,7 +32,7 @@ class LoginDB(val user: String, val pass: String){
     check
   }
   def loginLoop(n: Int){
-    if(n < (u length)){
+    if(n < (u length) && check == false){
       if(user == u(n) && pass == p(n)){
         check = true
       } else {

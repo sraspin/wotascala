@@ -10,6 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 class LoginDB(val user: String, val pass: String){
   var u = new ArrayBuffer[String]
   var p = new ArrayBuffer[String]
+  var name = new ArrayBuffer[String]
   var check: Boolean = false
   var n: Int = 0
   val db = new Database
@@ -17,10 +18,11 @@ class LoginDB(val user: String, val pass: String){
     try{
       val conn = db connect()
       val statement = conn createStatement()
-      val rs = statement executeQuery("SELECT idEmployee, passEmployee FROM employee")
+      val rs = statement executeQuery("SELECT * FROM employee")
       while(rs next){
         u += rs getString("idEmployee")
         p += rs getString("passEmployee")
+        name += rs getString("userName")
       }
       conn close()
     } catch {

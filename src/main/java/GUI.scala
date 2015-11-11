@@ -6,14 +6,9 @@ import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
-import scalafx.scene.Scene.sfxScene2jfx
-import scalafx.scene.effect.DropShadow
 import scalafx.scene.paint._
-import scalafx.scene.text.Text
 import scalafx.stage.StageStyle
-import scalafx.collections.ObservableBuffer
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
+import scalafx.scene.control.Button
 import scalafx.scene.shape.Circle
 import scalafx.scene.layout.{BorderPane, GridPane, HBox}
 import scalafx.event.ActionEvent
@@ -83,8 +78,8 @@ class GUI (stage:PrimaryStage) {
          val pass:String = passwordField.text getValue()
          val login = new LoginDB(user, pass)
          if(login Login()){
-           val a = new HomeScreenGUI
-           val astage = a HomeStage
+           val home = new HomeScreenGUI
+           val homeStage = home HomeStage
          } else {
            show()
          }

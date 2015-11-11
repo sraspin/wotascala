@@ -88,6 +88,7 @@ class POrdersGUI extends JFXApp{
    * viewButton calls method to create pop-up with individual order info
    * the "statup" Buttons change the status of the highlighted order
    * newOrderButton creates a new, empty purchase order in the database
+   * removeOrderButton removes the highlighted order
    */
   def rightPane() = new HBox{
     val sudb = new StatusUpdateDB
@@ -99,7 +100,7 @@ class POrdersGUI extends JFXApp{
         vgap = 10
         padding = Insets(20, 75, 10, 10)
         val viewButton = new Button{
-          padding = Insets(5,13,5,13)
+          padding = Insets(5,15,5,14)
           text = "View Order"
           onAction = {
             e: ActionEvent => {
@@ -142,7 +143,7 @@ class POrdersGUI extends JFXApp{
         }
         val newOrderButton = new Button{
           padding = Insets(5,5,5,5)
-            text = "Create new order"
+            text = "Add new order"
             onAction = {
               e: ActionEvent => {
                 asdb createOrder()
@@ -151,7 +152,7 @@ class POrdersGUI extends JFXApp{
             }
           }
         val removeOrderButton = new Button{
-          padding = Insets(5,5,5,5)
+          padding = Insets(5,7,5,7)
             text = "Remove order"
             onAction = {
               e: ActionEvent => {
@@ -161,11 +162,11 @@ class POrdersGUI extends JFXApp{
             }
           }
         add(viewButton, 2, 0)
-        add(statupButton, 2, 1)
-        add(statup2Button, 2, 2)
-        add(statup3Button, 2, 3)
-        add(newOrderButton, 2, 4)
-        add(removeOrderButton, 2, 5)
+        add(statupButton, 2, 5)
+        add(statup2Button, 2, 6)
+        add(statup3Button, 2, 7)
+        add(newOrderButton, 2, 1)
+        add(removeOrderButton, 2, 2)
       }
     )
   }
@@ -173,7 +174,7 @@ class POrdersGUI extends JFXApp{
   
   /**
    * creates a rectangle (acts as a scene)
-   * editButton appears at the top if condition is true
+   * editButton and removeButton appear at the top if condition is true
    * calls method that pulls individual order info from database
    * creates a table that contains the individual order info
    */
@@ -196,7 +197,7 @@ class POrdersGUI extends JFXApp{
               padding = Insets(10,10,10,10)
               val editButton = new Button{
                 padding = Insets(5,5,5,5)
-                text = "Edit Order"
+                text = "Add to Order"
                 onAction = {
                   e: ActionEvent => {
                     val popUp = popup2()
@@ -232,11 +233,11 @@ class POrdersGUI extends JFXApp{
             val order2 = aodb getPOrder(currentPOrder)
             val table2 = new TableView[APOrder](order2){
               columns ++= List(
-                new TableColumn[APOrder, Int]{
+                /*new TableColumn[APOrder, Int]{
                   text = "Purchase Number"
                   cellValueFactory = {_.value.orderNo}
                   prefWidth = 120
-                },
+                },*/
                 new TableColumn[APOrder, Int]{
                   text = "Purchase Order ID"
                   cellValueFactory = {_.value.idOrder}
@@ -308,9 +309,11 @@ class POrdersGUI extends JFXApp{
                   hgap = 10
                   vgap = 10
                   padding = Insets(20, 100, 10, 10)
-                  add(prodId, 0, 0)
-                  add(quantity, 0, 1)
-                  add(updatePOrder(prodId, quantity),0,2)
+                  add(new Label("Enter Product ID"), 0, 0)
+                  add(prodId, 0, 1)
+                  add(new Label("Enter a quantity"), 0, 3)
+                  add(quantity, 0, 4)
+                  add(updatePOrder(prodId, quantity),0,6)
                 }
               )
             }
@@ -345,6 +348,12 @@ class POrdersGUI extends JFXApp{
     finalButton
   }
   
+  
+  /**
+   * The functionality for removeButton
+   * calls a method that removes the highlighted order from the database
+   * refreshes the pop-up screen
+   */
   def removeFunction(){
     val rsdb = new RemoveStockDB
     rsdb removeIndOrder(indVal)

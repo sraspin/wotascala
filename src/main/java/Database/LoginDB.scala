@@ -4,7 +4,6 @@ package Database
  * @author sraspin
  */
 
-import java.sql.Connection
 import java.sql.SQLException
 import scala.collection.mutable.ArrayBuffer
 
@@ -23,6 +22,7 @@ class LoginDB(val user: String, val pass: String){
         u += rs getString("idEmployee")
         p += rs getString("passEmployee")
       }
+      conn close()
     } catch {
       case e : SQLException => e printStackTrace
     }

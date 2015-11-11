@@ -4,9 +4,7 @@ package Database
  * @author sraspin
  */
 
-import scalafx.collections.ObservableBuffer
 import java.sql.SQLException
-import Entities._
 
 
 class StatusUpdateDB {
@@ -23,6 +21,7 @@ class StatusUpdateDB {
       if(cp equals "P"){
         val rs = statement executeUpdate("UPDATE purchaseorder SET pOstatus = '" + s + "' WHERE idPOrder = '" + i + "'")
       }
+      conn close()
     } catch {
       case e : SQLException => e printStackTrace
     }

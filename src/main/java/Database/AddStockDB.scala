@@ -4,9 +4,7 @@ package Database
  * @author sraspin
  */
 
-import scalafx.collections.ObservableBuffer
 import java.sql.SQLException
-import Entities.CustomerOrder
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -23,7 +21,8 @@ class AddStockDB {
       val conn = db connect()
       
       val statement = conn createStatement()
-      val rs = statement executeUpdate("INSERT INTO `purchaseorder` (`idPOrder`, `pOstatus`) VALUES ('" + datei + "', 'a');")
+      val rs = statement executeUpdate("INSERT INTO `purchaseorder` (`idPOrder`, `pOstatus`) VALUES ('" + datei + "', 'Pending');")
+      conn close()
     } catch {
       case e : SQLException => e printStackTrace
     }
@@ -39,6 +38,7 @@ class AddStockDB {
       
       val statement = conn createStatement()
       val rs = statement executeUpdate("INSERT INTO `aporder` (`idIndividual`, `idOrder`, `idProduct`, `Quantity`) VALUES ('" + datei + "' , '" + currentPOrder + "', '" + p + "', '" + q + "')")
+      conn close()
     } catch {
       case e : SQLException => e printStackTrace
     }

@@ -7,27 +7,23 @@ import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Scene
-import scalafx.scene.Scene.sfxScene2jfx
-import scalafx.scene.effect.DropShadow
 import scalafx.scene.paint.Color
-import scalafx.scene.text.Text
-import scalafx.collections.ObservableBuffer
 import scalafx.scene.control.TableColumn._
 import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
-import scalafx.scene.shape.{Circle, Rectangle}
-import scalafx.scene.layout.{BorderPane, GridPane, HBox, VBox, StackPane}
+import scalafx.scene.shape.Rectangle
+import scalafx.scene.layout.{BorderPane, GridPane, HBox, StackPane}
 import scalafx.event.ActionEvent
-import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableCell, TableColumn, TableView}
-import Database.{POrdersDB, AnOrderDB, StatusUpdateDB, AddStockDB}
-import Entities.{PurchaseOrder, APOrder}
 import scalafx.stage.Popup
 import scalafx.scene.control.PasswordField
 import scalafx.scene.control.TextField
+import Database.{POrdersDB, AnOrderDB, StatusUpdateDB, AddStockDB, RemoveStockDB}
+import Entities.{PurchaseOrder, APOrder}
+
 
 
 class POrdersGUI extends JFXApp{
   var currentPOrder: Int = 0
+  var indVal: Int = 0
   
   
   /**
@@ -96,6 +92,7 @@ class POrdersGUI extends JFXApp{
   def rightPane() = new HBox{
     val sudb = new StatusUpdateDB
     val asdb = new AddStockDB
+    val rsdb = new RemoveStockDB
     children = Seq(
       new GridPane{
         hgap = 10
@@ -114,7 +111,7 @@ class POrdersGUI extends JFXApp{
           }
         }
         val statupButton = new Button{
-          padding = Insets(5,10,5,10)
+          padding = Insets(5,12,5,12)
           text = "Status: Pending"
           onAction = {
             e: ActionEvent => {
@@ -134,7 +131,7 @@ class POrdersGUI extends JFXApp{
           }
         }
         val statup3Button = new Button{
-          padding = Insets(5,6,5,6)
+          padding = Insets(5,11,5,10)
           text = "Status: Received"
           onAction = {
             e: ActionEvent => {
@@ -153,11 +150,22 @@ class POrdersGUI extends JFXApp{
               }
             }
           }
+        val removeOrderButton = new Button{
+          padding = Insets(5,5,5,5)
+            text = "Remove order"
+            onAction = {
+              e: ActionEvent => {
+                rsdb removeOrder(currentPOrder)
+                createStage
+              }
+            }
+          }
         add(viewButton, 2, 0)
         add(statupButton, 2, 1)
         add(statup2Button, 2, 2)
         add(statup3Button, 2, 3)
         add(newOrderButton, 2, 4)
+        add(removeOrderButton, 2, 5)
       }
     )
   }
@@ -199,8 +207,22 @@ class POrdersGUI extends JFXApp{
                   }
                 }
               }
+              val removeButton = new Button{
+                padding = Insets(5,5,5,5)
+                text = "Remove Order"
+                onAction = {
+                  e: ActionEvent => {
+                    removeFunction()
+                    inner.hide()
+                    
+                  }
+                }
+              }
               children = Seq(
-                editButton
+                new GridPane{
+                  add(editButton, 0, 0)
+                  add(removeButton, 1, 0)
+                }
               )
             }
           }
@@ -231,6 +253,13 @@ class POrdersGUI extends JFXApp{
                   prefWidth = 120
                 }
               )
+            }
+            table2 onMouseClicked = handle{
+              try{
+                indVal = table2.getSelectionModel.selectedItemProperty.get.orderNo.value
+              } catch {
+                case e : NullPointerException => e printStackTrace
+              }
             }
             children = Seq(
               table2
@@ -316,6 +345,15 @@ class POrdersGUI extends JFXApp{
     finalButton
   }
   
+  def removeFunction(){
+    val rsdb = new RemoveStockDB
+    rsdb removeIndOrder(indVal)
+    val showup = createPopup(true)
+    showup.show(stage,
+    (stage.width() - showup.width()) / 2.0 + stage.x(),
+    (stage.height() - showup.height()) / 2.0 + stage.y())
+  }
+  
   
   /**
    * Inserts a Label at the top of the page that returns user to title screen
@@ -335,5 +373,4 @@ class POrdersGUI extends JFXApp{
       }
     )
   }
-  
 }

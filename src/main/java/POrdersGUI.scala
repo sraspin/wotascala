@@ -299,7 +299,6 @@ class POrdersGUI extends JFXApp{
   
   /**
    * calls a method that inserts the given parameters into the database
-   * 
    */
   def updatePOrder(prodId: TextField, quantity: TextField): Button = {
     val finalButton = new Button("Update"){
@@ -317,6 +316,10 @@ class POrdersGUI extends JFXApp{
     finalButton
   }
   
+  
+  /**
+   * Inserts a Label at the top of the page that returns user to title screen
+   */
   def topPane() = new HBox{
     children = Seq(
       new GridPane{

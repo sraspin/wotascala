@@ -28,15 +28,16 @@ class LoginDB(val user: String, val pass: String){
     } catch {
       case e : SQLException => e printStackTrace
     }
-    if(check == false){
-      while(check == false && n < (u length)){
-        if(user == u(n) && pass == p(n)){
-          check = true
-        } else {
-          n += 1
-        }
+    loginLoop(0)
+    check
+  }
+  def loginLoop(n: Int){
+    if(n < (u length)){
+      if(user == u(n) && pass == p(n)){
+        check = true
+      } else {
+        loginLoop(n + 1)
       }
     }
-    check
   }
 }

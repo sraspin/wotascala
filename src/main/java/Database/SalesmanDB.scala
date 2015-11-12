@@ -11,9 +11,10 @@ class SalesmanDB {
   val db = new Database
   var xpos = new ArrayBuffer[Int]
   var ypos = new ArrayBuffer[Int]
-  var current = Array(4,11)
-  var nextCurrent = Array(0,0)
-  var l = Array[Int](xpos length)
+  var current = Array(4,11)       //Array(x coordinate, y coordinate)
+  var nextCurrent = Array(0,0)    //Array(n value, length)
+  var l = ArrayBuffer[Int](xpos length)
+  var o: Int = 0
   
   def getPositions(){
      try{
@@ -29,31 +30,49 @@ class SalesmanDB {
      } catch {
        case e : SQLException => e printStackTrace
      }
+     o = xpos length
   }
   
-  def dijkstraDist(i: Int){
-    var n: Int = 0
-    if(n < i){
-      l(n) = calculate(current(0),current(1),xpos(n),ypos(n))
-      n += 1
-    } else {
-      dijkstraDist(i-1)
+  def mainOne(){
+    getPositions()
+    dijkstraMain(0)
+  }
+  
+  def dijkstraMain(n: Int){
+    if(n < o){
+      dijkstraDist(0, l length)
+      dijkstraNext(0, l length)
+      current(0) = xpos(nextCurrent(0))
+      current(1) = ypos(nextCurrent(0))
+      println(current(0) + ", " + current(1))
+      l(nextCurrent(0)) = l((l length)-1)
+      xpos(nextCurrent(0)) = xpos((l length)-1)
+      ypos(nextCurrent(0)) = ypos((l length)-1)
+      xpos remove((l length)-1)
+      ypos remove((l length)-1)
+      l remove((l length)-1)
+      dijkstraMain(n + 1)
     }
   }
   
-  def dijkstraNext(i: Int){
-    nextCurrent(1) = l(0)
-    dijkstraNext1(i)
+  def dijkstraDist(n: Int, i: Int){
+    if(n < i){
+      l(n) = calculate(current(0),current(1),xpos(n),ypos(n))
+      dijkstraDist(n + 1, i)
+    }
   }
   
-  def dijkstraNext1(i: Int){
-    var m: Int = 0
-    
-    if(m < i){
-      if(l(m) < nextCurrent(1)){
-        nextCurrent(0) = m
+  def dijkstraNext(n: Int, i: Int){
+    nextCurrent(1) = l(0)
+    dijkstraNext1(0, i)
+  }
+  
+  def dijkstraNext1(n: Int, i: Int){
+    if(n < i){
+      if(l(n) < nextCurrent(1)){
+        nextCurrent(0) = n
       }
-      dijkstraNext1(m+1)
+      dijkstraNext1(n + 1, i)
     }
   }
   

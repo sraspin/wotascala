@@ -16,6 +16,7 @@ class RemoveStockDB {
       
       val statement = conn createStatement()
       val rs = statement executeUpdate("DELETE FROM `purchaseorder` WHERE `idPOrder`='" + currentPOrder + "'")
+      val rs2 = statement executeUpdate("DELETE FROM `aporder` WHERE `idOrder` = '" + currentPOrder + "'")
       conn close()
     } catch {
       case e : SQLException => e printStackTrace

@@ -27,6 +27,8 @@ class POrdersGUI extends JFXApp{
   
   
   /**
+   * @return Primary Stage
+   * 
    * Creating the stage and scene for Purchase Orders page
    * Calling methods for the central, right and top parts of BorderPane
    */

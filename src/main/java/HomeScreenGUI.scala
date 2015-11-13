@@ -64,8 +64,19 @@ class HomeScreenGUI extends JFXApp{
           }
         }
       }
+      val salesmanButton = new Button{
+        padding = Insets(5,10,5,10)
+        text = "Travelling Salesman"
+        onAction = {
+          e: ActionEvent => {
+            val s = new Salesman
+            s createStage
+          }
+        }
+      }
       add(customerButton, 0, 0)
       add(purchaseButton, 0, 1)
+      add(salesmanButton, 0, 2)
     }
   }
 }

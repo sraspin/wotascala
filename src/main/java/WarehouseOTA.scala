@@ -11,5 +11,5 @@ object WarehouseOTA extends JFXApp{
   val gui: GUI = new GUI(stage)
   gui show()
   //val doit = new Salesman
- // doit selling
+  //doit selling
 }

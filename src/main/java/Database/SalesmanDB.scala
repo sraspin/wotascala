@@ -15,6 +15,7 @@ class SalesmanDB {
   var current = Array(4,11)       //Array(x coordinate, y coordinate)
   var nextCurrent = Array(0,0)    //Array(n value, length)
   var l = new ArrayBuffer[Int]
+  var results = new ArrayBuffer[Int]
   var trial: ObservableBuffer[SalesmanEntity] = ObservableBuffer[SalesmanEntity]()
   
   def getPositions(): Int = {
@@ -33,29 +34,26 @@ class SalesmanDB {
      trial length
   }
   
-  
-  def dijkstraMain(n: Int, o: Int){
+  def dijkstraMain(n: Int, o: Int): ArrayBuffer[Int] = {
     if(n < o){
-      println(trial length)
       dijkstraDist(0, (trial length))
       nextCurrent(0) = 0
       nextCurrent(1) = l(0)
       dijkstraNext(0, l length)
       current(0) = trial(nextCurrent(0)).xpos_
       current(1) = trial(nextCurrent(0)).ypos_
-      println(current(0) + ", " + current(1))
+      results += (current(0), current(1))
       l(nextCurrent(0)) = l((l length)-1)
       trial remove(nextCurrent(0))
       resetArray(0, (l length))
       dijkstraMain(n + 1, o)
     }
+    results
   }
   
   def dijkstraDist(n: Int, i: Int){
     if(n < i){
       l += calculate(current(0), current(1), trial(n).xpos_, trial(n).ypos_)
-      println(n + ": " + l(n))
-      println(trial(n).xpos_ + " " + trial(n).ypos_)
       dijkstraDist(n + 1, i)
     }
   }

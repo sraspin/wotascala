@@ -14,23 +14,27 @@ import scalafx.scene.paint.Color
 import scalafx.event.ActionEvent
 import scalafx.scene.shape.Rectangle
 import Database.SalesmanDB
+import scala.collection.mutable.ArrayBuffer
 
 class Salesman() extends JFXApp{
   
   def selling(){
     val salesman = new SalesmanDB
     val a = salesman getPositions()
-    salesman dijkstraMain(0, a)
+    val results = salesman dijkstraMain(0, a)
   }
   
   def createStage: PrimaryStage = {
+    val salesman = new SalesmanDB
+    val a = salesman getPositions()
+    val results = salesman dijkstraMain(0, a)
     stage = new PrimaryStage{
       title = "Raspin Travelling Salesman"
       width = 500
       height = 500
       scene = new Scene{
         root = new BorderPane{
-          center = centrePane()
+          center = centrePane(results)
           //right = rightPane()
           //top = topPane()
         }
@@ -39,7 +43,7 @@ class Salesman() extends JFXApp{
     stage
   }
   
-  def centrePane()= new HBox{
+  def centrePane(results: ArrayBuffer[Int])= new HBox{
     children = Seq(
       new GridPane{
         hgap = 1
@@ -50,6 +54,7 @@ class Salesman() extends JFXApp{
           if(b < y){
             if(a < x){
               add(createRect(c), a, b)
+              add(new Label("    " + theOrder(a, b, 1, results)), a, b)
               addingRect(a + 1, b, x, y)
             } else {
               addingRect(a-7, b + 1, x, y)
@@ -57,7 +62,6 @@ class Salesman() extends JFXApp{
           }
         }
         addingRect(0, 0, 7, 11)
-        add(new Label("   1"), 0, 0)
       }
     )
   }
@@ -66,6 +70,18 @@ class Salesman() extends JFXApp{
       width = 30
       height = 30
       fill = a
+      Label("hi")
+  }
+  
+  def theOrder(a: Int, b: Int, z: Int, results: ArrayBuffer[Int]):String = {
+    if(a+1 == results(2*z - 2) && b+1 == results(2*z - 1)){
+      println(a + " " + b + " " + z toString)
+      z toString
+    } else if((2*z + 1) < (results length)){
+      theOrder(a, b, z + 1, results)
+    } else{
+      ""
+    }
   }
   
   def theColour(a: Int, b: Int): Color = {

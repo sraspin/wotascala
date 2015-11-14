@@ -7,9 +7,9 @@ import scalafx.application.JFXApp.PrimaryStage
 
 
 object WarehouseOTA extends JFXApp{
-  //stage = new PrimaryStage
-  //val gui: GUI = new GUI(stage)
-  //gui show()
-  val doit = new Salesman
-  doit selling
+  stage = new PrimaryStage
+  val gui: GUI = new GUI(stage)
+  gui show()
+  //val doit = new Salesman
+  //doit createStage
 }

@@ -56,19 +56,18 @@ class COrdersGUI extends JFXApp{
         new TableColumn[CustomerOrder, Int]{
           text = "Customer Order ID"
           cellValueFactory = {_.value.idCOrder}
-          prefWidth = 130
+          prefWidth = 125
         },
         new TableColumn[CustomerOrder, String]{
           text = "Order Status"
           cellValueFactory = {_.value.status}
-          prefWidth = 120
+          prefWidth = 125
         }
       )
     }
     table onMouseClicked = handle{
       try{
         currentCOrder = table.getSelectionModel.selectedItemProperty.get.idCOrder.value
-        //println(table.getSelectionModel.selectedItemProperty.get.idCOrder.value)
       } catch {
         case e : NullPointerException => e printStackTrace
       }

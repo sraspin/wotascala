@@ -15,6 +15,8 @@ import scalafx.event.ActionEvent
 import scalafx.scene.shape.Rectangle
 import Database.SalesmanDB
 import scala.collection.mutable.ArrayBuffer
+import scalafx.event.ActionEvent
+import scalafx.Includes._
 
 class Salesman() extends JFXApp{
   
@@ -36,7 +38,7 @@ class Salesman() extends JFXApp{
         root = new BorderPane{
           center = centrePane(results)
           right = rightPane(results)
-          //top = topPane()
+          top = topPane()
         }
       }
     }
@@ -54,7 +56,7 @@ class Salesman() extends JFXApp{
           if(b < y){
             if(a < x){
               add(createRect(c), a, b)
-              add(new Label("    " + theOrder(a, b, 1, results)), a, b)
+              add(new Label("   " + theOrder(a, b, 1, results)), a, b)
               addingRect(a + 1, b, x, y)
             } else {
               addingRect(a-7, b + 1, x, y)
@@ -67,8 +69,8 @@ class Salesman() extends JFXApp{
   }
   
   def createRect(a: Color) = new Rectangle{
-      width = 30
-      height = 30
+      width = 25
+      height = 25
       fill = a
       Label("hi")
   }
@@ -112,14 +114,28 @@ class Salesman() extends JFXApp{
       new GridPane{
         hgap = 10
         vgap = 10
+        val cogui = new COrdersGUI
         padding = Insets(20,75,10,10)
         val t = total((results length)/2, 0, results).toString
         add(new Label(t), 0, 0)
+        add(cogui.centrePane(), 0, 1)
       }
     )
   }
   
-  def topPane(){
-    
+  def topPane() = new HBox{
+    children = Seq(
+      new GridPane{
+        hgap =10
+        vgap = 10
+        padding = Insets(20, 100, 10, 10)
+        val homeButton = new Label("HOME")
+        homeButton onMouseClicked = handle{
+          val h = new HomeScreenGUI
+          h HomeStage
+        }
+        add(homeButton, 0, 0)
+      }
+    )
   }
 }

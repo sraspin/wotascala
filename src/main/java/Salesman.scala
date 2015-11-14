@@ -35,7 +35,7 @@ class Salesman() extends JFXApp{
       scene = new Scene{
         root = new BorderPane{
           center = centrePane(results)
-          //right = rightPane()
+          right = rightPane(results)
           //top = topPane()
         }
       }
@@ -75,7 +75,6 @@ class Salesman() extends JFXApp{
   
   def theOrder(a: Int, b: Int, z: Int, results: ArrayBuffer[Int]):String = {
     if(a+1 == results(2*z - 2) && b+1 == results(2*z - 1)){
-      println(a + " " + b + " " + z toString)
       z toString
     } else if((2*z + 1) < (results length)){
       theOrder(a, b, z + 1, results)
@@ -96,8 +95,28 @@ class Salesman() extends JFXApp{
     }
   }
   
-  def rightPane(){
-    
+  def total(i: Int, z: Int, results: ArrayBuffer[Int]): Int = {
+    val s = new SalesmanDB
+    if(i == 0){
+      val t = z + s.calculate(results(i), results(i + 1), 4, 11)
+      t
+    } else if(i == (results length)/2){
+      total(i - 1, s.calculate(4, 1, results(2*i - 2), results(2*i - 1)), results)
+    } else {
+      total(i - 1, s.calculate(results(2*i), results(2*i + 1), results(2*i - 2), results(2*i - 1)) + z, results)
+    }
+  }
+  
+  def rightPane(results: ArrayBuffer[Int]) = new HBox{
+    children = Seq(
+      new GridPane{
+        hgap = 10
+        vgap = 10
+        padding = Insets(20,75,10,10)
+        val t = total((results length)/2, 0, results).toString
+        add(new Label(t), 0, 0)
+      }
+    )
   }
   
   def topPane(){

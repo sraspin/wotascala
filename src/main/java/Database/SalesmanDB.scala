@@ -7,14 +7,15 @@ package Database
 import java.sql.SQLException
 import scala.collection.mutable.ArrayBuffer
 import scala.math.abs
+import scalafx.collections.ObservableBuffer
+import Entities.SalesmanEntity
 
 class SalesmanDB {
   val db = new Database
-  var xpos = new ArrayBuffer[Int]
-  var ypos = new ArrayBuffer[Int]
   var current = Array(4,11)       //Array(x coordinate, y coordinate)
   var nextCurrent = Array(0,0)    //Array(n value, length)
   var l = new ArrayBuffer[Int]
+  var trial: ObservableBuffer[SalesmanEntity] = ObservableBuffer[SalesmanEntity]()
   
   def getPositions(): Int = {
      try{
@@ -23,32 +24,28 @@ class SalesmanDB {
        val statement = conn createStatement()
        val rs = statement executeQuery("SELECT * FROM products")
        while(rs next){
-         xpos += rs getInt("xpos")
-         ypos += rs getInt("ypos")
+         trial += new SalesmanEntity(rs.getInt(4), rs.getInt(5))
        }
        conn close()
      } catch {
        case e : SQLException => e printStackTrace
      }
-     xpos length
+     trial length
   }
   
   
   def dijkstraMain(n: Int, o: Int){
     if(n < o){
-      //println(xpos length)
-      dijkstraDist(0, (xpos length))
+      println(trial length)
+      dijkstraDist(0, (trial length))
       nextCurrent(0) = 0
       nextCurrent(1) = l(0)
       dijkstraNext(0, l length)
-      current(0) = xpos(nextCurrent(0))
-      current(1) = ypos(nextCurrent(0))
+      current(0) = trial(nextCurrent(0)).xpos_
+      current(1) = trial(nextCurrent(0)).ypos_
       println(current(0) + ", " + current(1))
       l(nextCurrent(0)) = l((l length)-1)
-      xpos(nextCurrent(0)) = xpos((l length)-1)
-      ypos(nextCurrent(0)) = ypos((l length)-1)
-      xpos remove((l length)-1)
-      ypos remove((l length)-1)
+      trial remove(nextCurrent(0))
       resetArray(0, (l length))
       dijkstraMain(n + 1, o)
     }
@@ -56,8 +53,9 @@ class SalesmanDB {
   
   def dijkstraDist(n: Int, i: Int){
     if(n < i){
-      l += calculate(current(0),current(1),xpos(n),ypos(n))
+      l += calculate(current(0), current(1), trial(n).xpos_, trial(n).ypos_)
       println(n + ": " + l(n))
+      println(trial(n).xpos_ + " " + trial(n).ypos_)
       dijkstraDist(n + 1, i)
     }
   }

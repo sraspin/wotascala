@@ -6,6 +6,7 @@
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
+import scalafx.scene.control.{Button, Label}
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.layout.{BorderPane, GridPane, HBox, StackPane}
@@ -43,7 +44,7 @@ class Salesman() extends JFXApp{
       new GridPane{
         hgap = 1
         vgap = 1
-        padding = Insets(20, 75, 10, 10)
+        padding = Insets(10, 10, 10, 10)
         def addingRect(a: Int, b: Int, x: Int, y: Int){
           val c = theColour(a, b)
           if(b < y){
@@ -56,18 +57,23 @@ class Salesman() extends JFXApp{
           }
         }
         addingRect(0, 0, 7, 11)
+        add(new Label("   1"), 0, 0)
       }
     )
   }
   
   def createRect(a: Color) = new Rectangle{
-      width = 20
-      height = 20
+      width = 30
+      height = 30
       fill = a
   }
   
   def theColour(a: Int, b: Int): Color = {
-    if(a==0||a==3||a==6||b==0||b==5||b==10){
+    if(b==0 && a ==3){
+      Color.Red
+    } else if(a==3 && b==10){
+      Color.Blue
+    } else if(a==0||a==3||a==6||b==0||b==5||b==10){
       Color.LightGray
     } else {
       Color.Black

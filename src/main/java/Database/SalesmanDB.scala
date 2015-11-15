@@ -18,14 +18,14 @@ class SalesmanDB {
   var results = new ArrayBuffer[Int]
   var trial: ObservableBuffer[SalesmanEntity] = ObservableBuffer[SalesmanEntity]()
   
-  def getPositions(): Int = {
+  def getPositions(currentCOrder: Int): Int = {
      try{
        val conn = db connect()
        
        val statement = conn createStatement()
-       val rs = statement executeQuery("SELECT * FROM products")
+       val rs = statement executeQuery("SELECT * FROM new_view WHERE idOrder = '" + currentCOrder + "'")
        while(rs next){
-         trial += new SalesmanEntity(rs.getInt(4), rs.getInt(5))
+         trial += new SalesmanEntity(rs.getInt(1), rs.getInt(2))
        }
        conn close()
      } catch {

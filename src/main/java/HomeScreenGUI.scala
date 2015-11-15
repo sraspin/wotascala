@@ -15,8 +15,10 @@ import scalafx.event.ActionEvent
 class HomeScreenGUI extends JFXApp{
   
   /**
+   * @return : PrimaryStage
+   * 
    * Creates stage and scene
-   * Calls HomeStage method
+   * Calls a method which adds buttons to the stage
    */
   def HomeStage: PrimaryStage = {
     stage = new PrimaryStage{
@@ -36,8 +38,9 @@ class HomeScreenGUI extends JFXApp{
   
   
   /**
-   * Creates a GridPane
-   * Creates buttons to link to different pages of the application
+   * @return : GridPane
+   * 
+   * Creates buttons on the GridPane which link to different pages of the application
    */
   def HomeGridPane():GridPane={
     new GridPane {

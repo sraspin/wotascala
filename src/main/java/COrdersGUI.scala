@@ -23,6 +23,8 @@ class COrdersGUI extends JFXApp{
   
   
   /**
+   * @return : PrimaryStage
+   * 
    * Creating the stage and scene for Customer Orders page
    * Calling methods for the central, right and top parts of BorderPane
    */
@@ -45,8 +47,8 @@ class COrdersGUI extends JFXApp{
   
   /**
    * Calls method that pulls customer order info from database
-   * Creates a table of all customer orders
-   * Saves the order ID of an order that is clicked on
+   * Creates a table of all customer orders (Columns: Customer Order ID, Status)
+   * Stores the order ID of the last order that was clicked on
    */
   def centrePane() = new HBox {
     val db = new COrdersDB
@@ -156,6 +158,7 @@ class COrdersGUI extends JFXApp{
    * creates rectangle (acts as a scene)
    * calls method that pulls individual order info from database
    * creates a table that contains the individual order info
+   * creates a button labelled "OK" which hides the pop-up
    */
   def createPopup() = new Popup {
     inner =>
@@ -216,7 +219,7 @@ class COrdersGUI extends JFXApp{
   
   
   /**
-   * Inserts a Label at the top of the page that returns user to title screen
+   * Inserts a Label "HOME" at the top of the page that returns user to title screen when clicked
    */
   def topPane() = new HBox{
     children = Seq(

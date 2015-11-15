@@ -51,8 +51,8 @@ class POrdersGUI extends JFXApp{
   
   /**
    * Calls method that pulls purchase order info from database
-   * Creates a table of all purchase orders
-   * Saves the order ID of an order that is clicked on
+   * Creates a table of all purchase orders (columns: Purchase Order ID, Status)
+   * Stores the order ID of the last order that was clicked on
    */
   def centrePane() = new HBox {
     val db = new POrdersDB
@@ -74,7 +74,6 @@ class POrdersGUI extends JFXApp{
     table onMouseClicked = handle{
       try{
         currentPOrder = table.getSelectionModel.selectedItemProperty.get.idPOrder.value
-        //println(table.getSelectionModel.selectedItemProperty.get.idPOrder.value)
       } catch {
         case e : NullPointerException => e printStackTrace
       }
@@ -179,6 +178,7 @@ class POrdersGUI extends JFXApp{
    * editButton and removeButton appear at the top if condition is true
    * calls method that pulls individual order info from database
    * creates a table that contains the individual order info
+   * creates a button labelled "OK" which hides the pop-up when clicked on
    */
   def createPopup(insight: Boolean) = new Popup {
     inner =>
@@ -283,7 +283,8 @@ class POrdersGUI extends JFXApp{
   /**
    * Appears if the editButton is clicked on
    * asks the user for product ID and quantity values
-   * calls a method that accepts the users input and adds it into the database
+   * Adds button that accepts the users input and adds it into the database
+   * Adds "Close" button that hides pop-up when clicked on
    */
   def popup2() = new Popup {
     inner =>
@@ -319,7 +320,7 @@ class POrdersGUI extends JFXApp{
                 }
               )
             }
-            bottom = new Button("close") {
+            bottom = new Button("Close") {
               onAction = {e: ActionEvent => inner.hide()}
               alignmentInParent = Pos.Center
               margin = Insets(10, 0, 10, 0)
@@ -332,7 +333,10 @@ class POrdersGUI extends JFXApp{
   
   
   /**
-   * calls a method that inserts the given parameters into the database
+   * @return : Button
+   * 
+   * Stores the given parameters into the database
+   * Refreshes the first pop-up to contain the recent input
    */
   def updatePOrder(prodId: TextField, quantity: TextField): Button = {
     val finalButton = new Button("Update"){
@@ -352,8 +356,7 @@ class POrdersGUI extends JFXApp{
   
   
   /**
-   * The functionality for removeButton
-   * calls a method that removes the highlighted order from the database
+   * Removes the highlighted order from the database
    * refreshes the pop-up screen
    */
   def removeFunction(){
@@ -367,7 +370,7 @@ class POrdersGUI extends JFXApp{
   
   
   /**
-   * Inserts a Label at the top of the page that returns user to title screen
+   * Inserts a Label "HOME" at the top of the page that returns user to title screen
    */
   def topPane() = new HBox{
     children = Seq(

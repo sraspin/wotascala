@@ -24,13 +24,14 @@ import scalafx.Includes._
 class Salesman() extends JFXApp{
   
   var currentCOrder: Int = 0
-  /*
-  def selling(){
-    val salesman = new SalesmanDB
-    val a = salesman getPositions()
-    val results = salesman dijkstraMain(0, a)
-  }
-  */
+  
+  /**
+   * @return : PrimaryStage
+   * 
+   * Creating the stage and scene for the Travelling Salesman page
+   * Calling methods and retrieving values from SalesmanDB
+   * Calling methods for the central, right and top parts of BorderPane
+   */
   def createStage: PrimaryStage = {
     val salesman = new SalesmanDB
     val a = salesman getPositions(currentCOrder)
@@ -51,6 +52,10 @@ class Salesman() extends JFXApp{
     stage
   }
   
+  
+  /**
+   * 
+   */
   def centrePane(results: ArrayBuffer[Int])= new HBox{
     children = Seq(
       new GridPane{

@@ -53,6 +53,8 @@ class GUI (stage:PrimaryStage) {
   
   
   /**
+   * @return : GridPane
+   * 
    * The GridPane that holds the TextFields and Login button
    */
   def createGridPane():GridPane={
@@ -68,6 +70,8 @@ class GUI (stage:PrimaryStage) {
   
   
   /**
+   * @return : Button
+   * 
    * Creating the login button and function
    */
   def createLogin(usernameField:TextField, passwordField:PasswordField) : Button = {

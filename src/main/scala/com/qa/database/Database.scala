@@ -20,7 +20,7 @@ class Database {
    * The method I use to connect to the database
    */
   def connect(): Connection = {
-    val url = "jdbc:mysql://localhost:3306/forwota"
+    val url = "jdbc:mysql://localhost/forwota"
     val driver = "com.mysql.jdbc.Driver"
     val user = "root"
     val pass = "root"

@@ -1,5 +1,5 @@
-import Database.{POrdersDB, Database}
-import Entities.PurchaseOrder
+import com.qa.database.{POrdersDB, Database}
+import com.qa.entities.PurchaseOrder
 import scalafx.collections.ObservableBuffer
 import java.sql.ResultSet
 

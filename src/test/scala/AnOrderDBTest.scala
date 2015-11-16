@@ -1,5 +1,5 @@
-import Database.{AnOrderDB, Database}
-import Entities.{AnOrder, APOrder}
+import com.qa.database.{AnOrderDB, Database}
+import com.qa.entities.{AnOrder, APOrder}
 import scalafx.collections.ObservableBuffer
 import java.sql.ResultSet
 

@@ -1,5 +1,5 @@
 
-import Database.Database
+import com.qa.database.Database
 
 /**
  * @author sraspin

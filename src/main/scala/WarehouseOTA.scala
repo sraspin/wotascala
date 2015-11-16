@@ -4,6 +4,7 @@
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
+import com.qa.gui.GUI
 
 
 object WarehouseOTA extends JFXApp{

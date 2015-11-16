@@ -1,5 +1,5 @@
-import Database.{COrdersDB, Database}
-import Entities.CustomerOrder
+import com.qa.database.{COrdersDB, Database}
+import com.qa.entities.CustomerOrder
 import scalafx.collections.ObservableBuffer
 import java.sql.ResultSet
 

@@ -1,5 +1,5 @@
 import Database.{AnOrderDB, Database}
-import Entities.AnOrder
+import Entities.{AnOrder, APOrder}
 import scalafx.collections.ObservableBuffer
 import java.sql.ResultSet
 
@@ -85,22 +85,22 @@ class AnOrderDBTest extends TestBase{
       
       val resultSet = database.connect().createStatement.executeQuery("SELECT * FROM aporder WHERE idOrder = '" + 15034503 + "'")
       
-      val results = anOrderDB.getPOrder(1003)
+      val results = anOrderDB.getPOrder(15034503)
       
-      val anOrderArray: ObservableBuffer[AnOrder] = ObservableBuffer[AnOrder]()
+      val aPOrderArray: ObservableBuffer[APOrder] = ObservableBuffer[APOrder]()
       
-      def getData(rs: ResultSet, anOrder: ObservableBuffer[AnOrder]) = {
+      def getData(rs: ResultSet, apOrder: ObservableBuffer[APOrder]) = {
         def getRSData(){
           if(rs next){
-            anOrder += new AnOrder(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4))
+            apOrder += new APOrder(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4))
             getRSData
           }
         }
         getRSData
       }
-      getData(resultSet, anOrderArray)
+      getData(resultSet, aPOrderArray)
       
-      if(results.length == anOrderArray.length) assert(true) else assert(false)
+      if(results.length == aPOrderArray.length) assert(true) else assert(false)
     }
     it should "return the correct data" in{
       val anOrderDB = new AnOrderDB
@@ -109,23 +109,23 @@ class AnOrderDBTest extends TestBase{
       
       val resultSet = database.connect().createStatement.executeQuery("SELECT * FROM aporder WHERE idOrder = '" + 15034503 + "'")
       
-      val results = anOrderDB.getOrder(1003)
+      val results = anOrderDB.getPOrder(15034503)
       
-      val anOrderArray: ObservableBuffer[AnOrder] = ObservableBuffer[AnOrder]()
+      val aPOrderArray: ObservableBuffer[APOrder] = ObservableBuffer[APOrder]()
       
-      def getData(rs: ResultSet, anOrder: ObservableBuffer[AnOrder]) = {
+      def getData(rs: ResultSet, apOrder: ObservableBuffer[APOrder]) = {
         def getRSData(){
           if(rs next){
-            anOrder += new AnOrder(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4))
+            apOrder += new APOrder(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4))
             getRSData
           }
         }
         getRSData
       }
-      getData(resultSet, anOrderArray)
+      getData(resultSet, aPOrderArray)
       
-      if(results(0).orderNo.value == anOrderArray(0).orderNo.value && 
-          results(1).orderNo.value == anOrderArray(1).orderNo.value)
+      if(results(0).idIndividual.value == aPOrderArray(0).idIndividual.value && 
+          results(1).idIndividual.value == aPOrderArray(1).idIndividual.value)
         
         assert(true) else assert(false)
     }

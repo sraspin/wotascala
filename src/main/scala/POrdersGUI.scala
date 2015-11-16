@@ -260,7 +260,7 @@ class POrdersGUI extends JFXApp{
             }
             table2 onMouseClicked = handle{
               try{
-                indVal = table2.getSelectionModel.selectedItemProperty.get.orderNo.value
+                indVal = table2.getSelectionModel.selectedItemProperty.get.idIndividual.value
               } catch {
                 case e : NullPointerException => e printStackTrace
               }

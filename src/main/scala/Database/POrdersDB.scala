@@ -7,6 +7,7 @@ package Database
 import scalafx.collections.ObservableBuffer
 import java.sql.SQLException
 import Entities.PurchaseOrder
+import Database.Database
 
 class POrdersDB {
   val db = new Database

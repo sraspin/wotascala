@@ -9,15 +9,16 @@ import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Scene
 import scalafx.scene.paint.Color
 import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
+import scalafx.scene.control.{TableColumn, TableView, Button, Label}
 import scalafx.scene.shape.Rectangle
 import scalafx.scene.layout.{BorderPane, GridPane, HBox, StackPane}
 import scalafx.event.ActionEvent
 import scalafx.stage.Popup
-import scalafx.scene.control.PasswordField
 import scalafx.scene.control.TextField
-import Database.{POrdersDB, AnOrderDB, StatusUpdateDB, AddStockDB, RemoveStockDB}
-import Entities.{PurchaseOrder, APOrder}
+import Database.{AnOrderDB, StatusUpdateDB, AddStockDB, RemoveStockDB, POrdersDB}
+import Entities.{APOrder, PurchaseOrder}
+import scalafx.beans.property.StringProperty.sfxStringProperty2jfx
+import scalafx.scene.control.TableView.sfxTableView2jfx
 
 
 

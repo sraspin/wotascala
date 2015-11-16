@@ -5,6 +5,7 @@ package Database
  */
 
 import java.sql.SQLException
+import Database.Database
 
 class RemoveStockDB {
   val db = new Database

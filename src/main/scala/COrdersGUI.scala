@@ -9,13 +9,14 @@ import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Scene
 import scalafx.scene.paint.Color
 import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
+import scalafx.scene.control.{TableColumn, TableView, Button, Label}
 import scalafx.scene.shape.Rectangle
-import scalafx.scene.layout.{BorderPane, GridPane, HBox, VBox, StackPane}
+import scalafx.scene.layout.{BorderPane, GridPane, HBox, StackPane}
 import scalafx.event.ActionEvent
-import Database.{COrdersDB, AnOrderDB, StatusUpdateDB}
-import Entities.{CustomerOrder, AnOrder}
+import Database.{AnOrderDB, StatusUpdateDB, COrdersDB}
+import Entities.{AnOrder, CustomerOrder}
 import scalafx.stage.Popup
+import scalafx.scene.control.TableView.sfxTableView2jfx
 
 
 class COrdersGUI extends JFXApp{

@@ -6,7 +6,8 @@ package Database
 
 import scalafx.collections.ObservableBuffer
 import java.sql.SQLException
-import Entities.{AnOrder,APOrder}
+import Entities.{APOrder, AnOrder}
+import Database.Database
 
 class AnOrderDB {
   val db = new Database

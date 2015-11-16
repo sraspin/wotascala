@@ -12,6 +12,8 @@ class COrdersDBTest extends TestBase{
         
       assert(result != null)
     }
+    
+    it should "return all the customer"
   }
   testGetCOrders
 }

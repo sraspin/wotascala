@@ -2,19 +2,19 @@
  * @author sraspin
  */
 import scalafx.Includes._
-import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
 import scalafx.scene.paint._
-import scalafx.stage.StageStyle
 import scalafx.scene.control.Button
-import scalafx.scene.shape.Circle
-import scalafx.scene.layout.{BorderPane, GridPane, HBox}
+import scalafx.scene.layout.{GridPane, HBox}
 import scalafx.event.ActionEvent
-import Database._
 import scalafx.scene.control.PasswordField
 import scalafx.scene.control.TextField
+import scalafx.beans.property.StringProperty.sfxStringProperty2jfx
+import scalafx.scene.Scene.sfxScene2jfx
+import scalafx.stage.Stage.sfxStage2jfx
+import Database.LoginDB
 
 class GUI (stage:PrimaryStage) {
   stage title = "Raspin LogIn"

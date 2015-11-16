@@ -9,6 +9,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.math.abs
 import scalafx.collections.ObservableBuffer
 import Entities.SalesmanEntity
+import Database.Database
 
 class SalesmanDB {
   val db = new Database

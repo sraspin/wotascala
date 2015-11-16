@@ -6,6 +6,7 @@ package Database
 
 import java.sql.SQLException
 import scala.collection.mutable.ArrayBuffer
+import Database.Database
 
 class LoginDB(val user: String, val pass: String){
   var u = new ArrayBuffer[String]

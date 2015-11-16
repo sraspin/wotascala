@@ -9,10 +9,10 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.control.{Button, Label}
 import scalafx.geometry.Insets
 import scalafx.scene.Scene
-import scalafx.scene.layout.{BorderPane, GridPane, HBox, StackPane}
+import scalafx.scene.layout.{BorderPane, GridPane, HBox}
 import scalafx.scene.paint.Color
 import scalafx.scene.control.TableColumn._
-import scalafx.scene.control.{TableCell, TableColumn, TableView, Button, Label}
+import scalafx.scene.control.{TableColumn, TableView, Button, Label}
 import scalafx.event.ActionEvent
 import scalafx.scene.shape.Rectangle
 import Database.{SalesmanDB, COrdersDB}
@@ -20,6 +20,7 @@ import Entities.CustomerOrder
 import scala.collection.mutable.ArrayBuffer
 import scalafx.event.ActionEvent
 import scalafx.Includes._
+import scalafx.scene.control.TableView.sfxTableView2jfx
 
 class Salesman() extends JFXApp{
   
@@ -54,7 +55,8 @@ class Salesman() extends JFXApp{
   
   
   /**
-   * 
+   * Creates a grid of rectangles to replicate the warehouse
+   * colours in the rectangles depending on their position
    */
   def centrePane(results: ArrayBuffer[Int])= new HBox{
     children = Seq(
@@ -79,12 +81,22 @@ class Salesman() extends JFXApp{
     )
   }
   
+  
+  /**
+   * creates individual rectangles for use in "centrePane"
+   */
   def createRect(a: Color) = new Rectangle{
       width = 25
       height = 25
       fill = a
   }
   
+  
+  /**
+   * @return : String
+   * 
+   * Used to label the order of collection (used in "centrePane")
+   */
   def theOrder(a: Int, b: Int, z: Int, results: ArrayBuffer[Int]):String = {
     if((results length) <= 1){
       ""
@@ -97,6 +109,12 @@ class Salesman() extends JFXApp{
     }
   }
   
+  
+  /**
+   * @return : Color
+   * 
+   * Colours in the rectangles in certain positions so that they replicate the warehouse
+   */
   def theColour(a: Int, b: Int): Color = {
     if(b==0 && a ==3){
       Color.Red
@@ -109,6 +127,12 @@ class Salesman() extends JFXApp{
     }
   }
   
+  
+  /**
+   * @return : Integer
+   * 
+   * Calculates the total distance of the travelling salesman algorithm
+   */
   def total(i: Int, z: Int, results: ArrayBuffer[Int]): Int = {
     if((results length) <= 1){
       0
@@ -125,6 +149,12 @@ class Salesman() extends JFXApp{
     }
   }
   
+  
+  /**
+   * Creates a new GridPane
+   * Inserts a table into the GridPane
+   * Stores the order number of the last table element that is clicked on
+   */
   def rightPane(results: ArrayBuffer[Int]) = new HBox{
     children = Seq(
       new GridPane{
@@ -173,6 +203,10 @@ class Salesman() extends JFXApp{
     )
   }
   
+  
+  /**
+   * Creates a Label "Home" that returns the user to the title screen when clicked on
+   */
   def topPane() = new HBox{
     children = Seq(
       new GridPane{
@@ -188,6 +222,11 @@ class Salesman() extends JFXApp{
       }
     )
   }
+  
+  
+  /**
+   * Creates a key to show what each coloured rectangle represents in my warehouse made of rectangles
+   */
   def bottomPane() = new HBox{
     children = Seq(
       new GridPane{

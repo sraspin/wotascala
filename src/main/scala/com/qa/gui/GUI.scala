@@ -85,7 +85,7 @@ class GUI (stage:PrimaryStage) {
          val user:String = usernameField.text getValue()
          val pass:String = passwordField.text getValue()
          val login = new LoginDB(user, pass)
-         if(login Login()){
+         if(login login()){
            val home = new HomeScreenGUI
            val homeStage = home HomeStage
          } else {

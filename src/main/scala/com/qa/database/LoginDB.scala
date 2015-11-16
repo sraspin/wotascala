@@ -18,7 +18,7 @@ class LoginDB(val user: String, val pass: String){
   /**
    * Stores data from the employee table in the database into separate arrays
    */
-  def Login():Boolean = {
+  def login():Boolean = {
     try{
       val conn = db connect()
       val statement = conn createStatement()

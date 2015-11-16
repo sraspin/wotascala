@@ -11,6 +11,14 @@ import com.qa.entities.{APOrder, AnOrder}
 class AnOrderDB {
   val db = new Database
   
+  
+  /**
+   * @return : ObservableBuffer[AnOrder]
+   * @param : a - the ID of the orders to be selected
+   * 
+   * Selects rows from the database where the parameter input matches data in the idOrder column
+   * Stores the data in the specified rows into an array
+   */
   def getOrder(a: Int): ObservableBuffer[AnOrder] = {
     val orderArray:ObservableBuffer[AnOrder] = ObservableBuffer[AnOrder]()
     
@@ -29,6 +37,14 @@ class AnOrderDB {
     orderArray
   }
   
+  
+  /**
+   * @return : ObservableBuffer[APOrder]
+   * @param : the ID of the order to be selected
+   * 
+   * Selects rows from the database where the parameter input matches data in the idOrder column
+   * Stores the data in the specified rows into an array
+   */
   def getPOrder(a: Int): ObservableBuffer[APOrder] = {
     val pOrderArray:ObservableBuffer[APOrder] = ObservableBuffer[APOrder]()
     

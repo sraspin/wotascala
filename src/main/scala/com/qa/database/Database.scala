@@ -13,6 +13,12 @@ import java.sql.DriverManager
 class Database {
   var connection:Connection = _
   
+  
+  /**
+   * @return : Connection
+   * 
+   * The method I use to connect to the database
+   */
   def connect(): Connection = {
     val url = "jdbc:mysql://localhost:3306/forwota"
     val driver = "com.mysql.jdbc.Driver"

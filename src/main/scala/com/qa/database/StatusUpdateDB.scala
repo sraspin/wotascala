@@ -10,6 +10,12 @@ import java.sql.SQLException
 class StatusUpdateDB {
   val db = new Database
   
+  
+  /**
+   * @param : cp - determines which table of the database to update
+   * @param : s - what the new status will say
+   * @param : i - the ID of the order whose status is to be updated
+   */
   def statUpdate(cp: String, s: String, i: Int) {
     try{
       val conn = db connect()

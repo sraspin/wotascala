@@ -58,6 +58,8 @@ class Salesman() extends JFXApp{
   
   
   /**
+   * @param : results - array containing the list of warehouse locations to be visited and in the correct order
+   * 
    * Creates a grid of rectangles to replicate the warehouse
    * colours in the rectangles depending on their position
    */
@@ -86,6 +88,8 @@ class Salesman() extends JFXApp{
   
   
   /**
+   * @param : a - the colour of the rectangle to be created
+   * 
    * creates individual rectangles for use in "centrePane"
    */
   def createRect(a: Color) = new Rectangle{
@@ -97,6 +101,10 @@ class Salesman() extends JFXApp{
   
   /**
    * @return : String
+   * @param : a - the x coordinate of the location being looked at
+   * @param : b - the y coordinate of the location being looked at
+   * @param : z - increased by 1 after each loop
+   * @param : results - the array containing the list of warehouse locations to be visited and in the correct order
    * 
    * Used to label the order of collection (used in "centrePane")
    */
@@ -115,6 +123,8 @@ class Salesman() extends JFXApp{
   
   /**
    * @return : Color
+   * @param : a - the x coordinate of the location being looked at
+   * @param : b - the y coordinate of the location being looked at
    * 
    * Colours in the rectangles in certain positions so that they replicate the warehouse
    */
@@ -133,6 +143,9 @@ class Salesman() extends JFXApp{
   
   /**
    * @return : Integer
+   * @param : i - decreased by 1 after each loop
+   * @param : z - the running total of the total distance
+   * @param : results - the array containing the list of warehouse locations to be visited and in the correct order
    * 
    * Calculates the total distance of the travelling salesman algorithm
    */
@@ -154,6 +167,8 @@ class Salesman() extends JFXApp{
   
   
   /**
+   * @param : results - the array containing the list of warehouse locations to be visited and in the correct order
+   * 
    * Creates a new GridPane
    * Inserts a table into the GridPane
    * Stores the order number of the last table element that is clicked on

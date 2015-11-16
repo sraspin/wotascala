@@ -11,6 +11,12 @@ import com.qa.entities.CustomerOrder
 class COrdersDB {
   val db = new Database
   
+  
+  /**
+   * @return : ObservableBuffer[CustomerOrder]
+   * 
+   * stores data from the customerorder table in the database into an array
+   */
   def getCOrders(): ObservableBuffer[CustomerOrder] = {
     val cOrderArray:ObservableBuffer[CustomerOrder] = ObservableBuffer[CustomerOrder]()
     

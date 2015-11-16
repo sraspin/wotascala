@@ -13,6 +13,11 @@ class LoginDB(val user: String, val pass: String){
   var name = new ArrayBuffer[String]
   var n: Int = 0
   val db = new Database
+  
+  
+  /**
+   * Stores data from the employee table in the database into separate arrays
+   */
   def Login():Boolean = {
     try{
       val conn = db connect()
@@ -29,6 +34,15 @@ class LoginDB(val user: String, val pass: String){
     }
     loginLoop(0)
   }
+  
+  
+  /**
+   * @return : Boolean
+   * @param : n - increased by 1 after each loop
+   * 
+   * checks whether there are still unchecked usernames in the database
+   * once the username and password match, exits loop with value true else false
+   */
   def loginLoop(n: Int): Boolean = {
     if(n < (u length)){
       if(user == u(n) && pass == p(n)){

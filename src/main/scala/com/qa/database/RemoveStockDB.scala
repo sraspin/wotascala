@@ -9,6 +9,13 @@ import java.sql.SQLException
 class RemoveStockDB {
   val db = new Database
   
+  
+  /**
+   * @param : currentPOrder - the ID of the order to be deleted
+   * 
+   * Deletes rows from the purchaseorder table of the database where the parameter input matches the data in column idPOrder
+   * deletes corresponding data in the aporder table of the database
+   */
   def removeOrder(currentPOrder: Int){
     
     try{
@@ -23,6 +30,12 @@ class RemoveStockDB {
     }
   }
   
+  
+  /**
+   * @param : indVal - the primary key of the order to be deleted
+   * 
+   * Deletes rows from the aporder table of the database where the parameter input matches the data in column idIndividual
+   */
   def removeIndOrder(indVal: Int){
     
     try{

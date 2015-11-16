@@ -1,3 +1,5 @@
+package com.qa.databasetests
+
 import com.qa.database.{AnOrderDB, Database}
 import com.qa.entities.{AnOrder, APOrder}
 import scalafx.collections.ObservableBuffer

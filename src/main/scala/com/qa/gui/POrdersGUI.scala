@@ -174,6 +174,8 @@ class POrdersGUI extends JFXApp{
   
   
   /**
+   * @param : insight - determines whether or not to show the "Add to order" and "remove order" buttons
+   * 
    * creates a rectangle (acts as a scene)
    * editButton and removeButton appear at the top if condition is true
    * calls method that pulls individual order info from database
@@ -334,6 +336,8 @@ class POrdersGUI extends JFXApp{
   
   /**
    * @return : Button
+   * @param : prodId - the product ID entered by the user which is to be added to the database
+   * @param : quantity - the quantity entered by the user which is to be added to the database
    * 
    * Stores the given parameters into the database
    * Refreshes the first pop-up to contain the recent input

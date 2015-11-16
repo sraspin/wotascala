@@ -18,6 +18,13 @@ class SalesmanDB {
   var results = new ArrayBuffer[Int]
   var trial: ObservableBuffer[SalesmanEntity] = ObservableBuffer[SalesmanEntity]()
   
+  
+  /**
+   * @return : Integer
+   * @param : currentCOrder - the ID of the order to obtain data of
+   * 
+   * Stores data from the new_view view in the database where the parameter input matches the data in the idOrder column into an array
+   */
   def getPositions(currentCOrder: Int): Int = {
      try{
        val conn = db connect()
@@ -34,6 +41,15 @@ class SalesmanDB {
      trial length
   }
   
+  
+  /**
+   * @return : ArrayBuffer[Int]
+   * @param : n - increased by 1 after each loop
+   * @param : o - the max value for n
+   * 
+   * The main method for my travelling salesman algorithm
+   * Changes arrays to contain the current position of the algorithm
+   */
   def dijkstraMain(n: Int, o: Int): ArrayBuffer[Int] = {
     if(n < o){
       dijkstraDist(0, (trial length))
@@ -51,6 +67,13 @@ class SalesmanDB {
     results
   }
   
+  
+  /**
+   * @param : n - increased by 1 after each loop
+   * @param : i - the max value for n
+   * 
+   * Calculates the distances from the current position of the algorithm to the remaining possible positions
+   */
   def dijkstraDist(n: Int, i: Int){
     if(n < i){
       l += calculate(current(0), current(1), trial(n).xpos_, trial(n).ypos_)
@@ -59,6 +82,12 @@ class SalesmanDB {
   }
   
   
+  /**
+   * @param : n - increased by 1 after each loop
+   * @param : i - the max value for n
+   * 
+   * looks through all of the possible next moves and picks the shortest
+   */
   def dijkstraNext(n: Int, i: Int){
     if(n < i){
       if(l(n) < nextCurrent(1)){
@@ -69,6 +98,13 @@ class SalesmanDB {
     }
   }
   
+  
+  /**
+   * @param : a - increased by 1 after each loop
+   * @param : b - the max value for a
+   * 
+   * removes all entries of the array "l"
+   */
   def resetArray(a: Int, b: Int){
     if(a < b){
       l remove(0)
@@ -76,6 +112,16 @@ class SalesmanDB {
     }
   }
   
+  
+  /**
+   * @return : Integer
+   * @param : a - first location x coordinate
+   * @param : b - first location y coordinate
+   * @param : x - second location x coordinate
+   * @param : y - second location y coordinate
+   * 
+   * calculates the shortest distance between the first location and second location taking into account the positions of the shelves in the warehouse
+   */
   def calculate(a: Int, b: Int, x: Int, y: Int): Int = {
     var distance: Int = 0
     

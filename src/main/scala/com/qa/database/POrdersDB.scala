@@ -11,6 +11,12 @@ import com.qa.entities.PurchaseOrder
 class POrdersDB {
   val db = new Database
   
+  
+  /**
+   * @return : ObservableBuffer[PurchaseOrder]
+   * 
+   * Stores data from the purchaseorder table in the database into arrays
+   */
   def getPOrders(): ObservableBuffer[PurchaseOrder] = {
     val pOrderArray:ObservableBuffer[PurchaseOrder] = ObservableBuffer[PurchaseOrder]()
     

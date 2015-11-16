@@ -73,6 +73,8 @@ class GUI (stage:PrimaryStage) {
   
   /**
    * @return : Button
+   * @param : usernameField - the text field for the user to type their username into
+   * @param : passwordField - the text field for the user to type their password into
    * 
    * Creating the login button and function
    */

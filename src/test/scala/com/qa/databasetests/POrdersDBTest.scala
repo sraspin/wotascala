@@ -1,3 +1,5 @@
+package com.qa.databasetests
+
 import com.qa.database.{POrdersDB, Database}
 import com.qa.entities.PurchaseOrder
 import scalafx.collections.ObservableBuffer

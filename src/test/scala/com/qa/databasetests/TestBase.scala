@@ -4,6 +4,8 @@
  * @author sraspin
  */
 
+package com.qa.databasetests
+
 import org.scalatest._
 import org.scalatest.Inspectors
 

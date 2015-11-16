@@ -1,4 +1,6 @@
 
+package com.qa.databasetests
+
 import com.qa.database.Database
 
 /**
